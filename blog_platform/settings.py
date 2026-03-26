@@ -81,8 +81,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # ------------------ CLOUDINARY ------------------
 
@@ -92,8 +98,6 @@ cloudinary.config(
     api_key=getenv('CLOUDINARY_API_KEY'),
     api_secret=getenv('CLOUDINARY_API_SECRET'),
 )
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # ❌ REMOVE THESE (very important)
